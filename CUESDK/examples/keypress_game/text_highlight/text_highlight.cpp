@@ -101,7 +101,7 @@ int main()
 
 	if (const auto error = CorsairGetLastError()) {
 		std::cout << "Handshake failed: " << toString(error) << std::endl;
-		getchar();
+		_getch();
 		return -1;
 	}
 	CorsairRequestControl(CAM_ExclusiveLightingControl);
