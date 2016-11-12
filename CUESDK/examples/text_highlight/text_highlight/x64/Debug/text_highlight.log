@@ -1,0 +1,8 @@
+﻿  text_highlight.cpp
+c:\users\fan\documents\cuesdk_2.4.67\cuesdk\examples\text_highlight\text_highlight\text_highlight.cpp(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  text_highlight.vcxproj -> C:\Users\Fan\Documents\CUESDK_2.4.67\CUESDK\examples\text_highlight\x64\Debug\text_highlight.exe
+  text_highlight.vcxproj -> C:\Users\Fan\Documents\CUESDK_2.4.67\CUESDK\examples\text_highlight\x64\Debug\text_highlight.pdb (Full PDB)
+  C:\Users\Fan\Documents\CUESDK_2.4.67\CUESDK\examples\text_highlight\..\..\bin\x64\CUESDK.x64_2012.dll
+  C:\Users\Fan\Documents\CUESDK_2.4.67\CUESDK\examples\text_highlight\..\..\bin\x64\CUESDK.x64_2013.dll
+  C:\Users\Fan\Documents\CUESDK_2.4.67\CUESDK\examples\text_highlight\..\..\bin\x64\CUESDK.x64_2015.dll
+  3 File(s) copied
