@@ -1,13 +1,7 @@
 // progress.cpp : Defines the entry point for the console application.
 //
 
-#include "CUESDK.h"
-
-#include <windows.h>
-#include <iostream>
-#include <thread>
-#include <future>
-#include <vector>
+#include "color_pulse.h"
 
 const char* toString(CorsairError error) 
 {
@@ -63,7 +57,7 @@ std::vector<CorsairLedColor> getAvailableKeys()
 
 void performPulseEffect(std::vector<CorsairLedColor> &ledColorsVec)
 {
-	static auto waveDuration = 500;
+	static auto waveDuration = 100;
 	const auto timePerFrame = 25;
 	for (auto x = .0; x < 2; x += static_cast<double>(timePerFrame) / waveDuration) {
 		auto val = (1 - pow(x - 1, 2)) * 255;

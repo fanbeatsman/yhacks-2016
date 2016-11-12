@@ -1,0 +1,9 @@
+﻿  color_pulse.cpp
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\color_pulse\color_pulse\color_pulse.cpp(65): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\color_pulse\color_pulse\color_pulse.cpp(66): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  color_pulse.vcxproj -> C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\color_pulse\x64\Debug\color_pulse.exe
+  color_pulse.vcxproj -> C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\color_pulse\x64\Debug\color_pulse.pdb (Full PDB)
+  C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\color_pulse\..\..\bin\x64\CUESDK.x64_2012.dll
+  C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\color_pulse\..\..\bin\x64\CUESDK.x64_2013.dll
+  C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\color_pulse\..\..\bin\x64\CUESDK.x64_2015.dll
+  3 File(s) copied
