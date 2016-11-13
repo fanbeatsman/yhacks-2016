@@ -21,6 +21,15 @@
 #include <cstdlib>
 //#include <time.h>
 
+#include <string>
+#include <fstream>
+#include <streambuf>
+#include <ostream> 
+	#include <iostream>
+	#include <string>
+	#include <sstream>
+#pragma comment(lib, "Winmm.lib")
+
 const int prestige[10][3] = {
 	{255,0,0},
 	{0,255,255},
@@ -66,7 +75,7 @@ double getKeyboardWidth(CorsairLedPositions *ledPositions)
 void *displayPowerBar(int score) {
 	int scoreLine[2] = { 40,20 };
 	const auto ledPositions = CorsairGetLedPositions();
-	const auto keyboardWidth = getKeyboardWidth(ledPositions) * 1 / 2;
+	const auto keyboardWidth = getKeyboardWidth(ledPositions);
 
 	std::vector<CorsairLedColor> vec;
 	for (auto i = 0; i < ledPositions->numberOfLed; i++) {
@@ -97,6 +106,7 @@ void *displayPowerBar(int score) {
 
 void *spawnNote(int key, int score[], bool superPowerActive[]) {
 	int VK_Keys[4] = { 0x30 ,0x50,0x4C,0xBE };
+	//int VK_Keys[4] = { 0x08 ,0xDC,0x0D,0xA1};
 	int ledIds[4] = { 21,CorsairGetLedIdForKeyName('p'),CorsairGetLedIdForKeyName('l'),57 };
 	int musicLine[4][2] = { { 60,40 },{ 80,60 },{ 90,80 },{ 120,100 } };
 	const auto ledPositions = CorsairGetLedPositions();
@@ -112,7 +122,7 @@ void *spawnNote(int key, int score[], bool superPowerActive[]) {
 		//int key = rand() % 4;
 		//int key = 0;
 		bool lineancy = false;
-		const auto keyboardWidth = getKeyboardWidth(ledPositions) * 1 / 2;
+		const auto keyboardWidth = getKeyboardWidth(ledPositions) * 1/2;
 		int numberOfSteps = 50;
 		for (auto n = 0; (n % (numberOfSteps + 1)) != numberOfSteps; n++) {
 			if ((n % (numberOfSteps + 1)) == 0) {
@@ -136,7 +146,9 @@ void *spawnNote(int key, int score[], bool superPowerActive[]) {
 				//ledColorPrev.ledId = ledPosPrev.ledId;
 				//ledColorPrevPrev.ledId = ledPosPrev.ledId;
 				if (ledPos.left < currWidth && ledPos.left > currWidth - 20 && ledPos.top < musicLine[key][0] && ledPos.top > musicLine[key][1]) {
-					ledColor.b = 255;
+					ledColor.r = 255;
+					ledColor.g = 10;
+					ledColor.b = 170;
 					//	vec.push_back(ledColorPrevPrev);
 					vec.push_back(ledColorPrev);
 					vec.push_back(ledColor);
@@ -157,7 +169,7 @@ void *spawnNote(int key, int score[], bool superPowerActive[]) {
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(40));
 
-			if ((n % (numberOfSteps + 1) <= (numberOfSteps + 5)) && (n % (numberOfSteps + 1) > (numberOfSteps - 10))) {
+			if ((n % (numberOfSteps + 1) <= (numberOfSteps + 5)) && (n % (numberOfSteps + 1) > (numberOfSteps - 20))) {
 				if (GetAsyncKeyState(VK_Keys[key])) {
 					std::cout << "right";
 					score[0] = score[0] + 1;
@@ -240,7 +252,7 @@ std::vector<CorsairLedColor> getAvailableKeys()
 
 void performPulseEffect(std::vector<CorsairLedColor> &ledColorsVec)
 {
-	static auto waveDuration = 500;
+	static auto waveDuration = 100;
 	const auto timePerFrame = 25;
 	for (auto x = .0; x < 2; x += static_cast<double>(timePerFrame) / waveDuration) {
 		auto val = (1 - pow(x - 1, 2)) * 255;
@@ -248,10 +260,7 @@ void performPulseEffect(std::vector<CorsairLedColor> &ledColorsVec)
 			ledColor.g = val;
 		CorsairSetLedsColorsAsync(ledColorsVec.size(), ledColorsVec.data(), nullptr, nullptr);
 
-		if (GetAsyncKeyState(VK_OEM_PLUS) && waveDuration > 100)
-			waveDuration -= 100;
-		if (GetAsyncKeyState(VK_OEM_MINUS) && waveDuration < 2000)
-			waveDuration += 100;
+		
 		std::this_thread::sleep_for(std::chrono::milliseconds(timePerFrame));
 	}
 }
@@ -268,8 +277,44 @@ void highlightKey(CorsairLedId ledId)
 	}
 }
 
+std::vector<int> extract_ints(std::string const& input_str)
+	{
+		    std::vector<int> ints;
+		    std::istringstream input(input_str);
+	
+			    std::string number;
+		    while (std::getline(input, number, ','))
+			    {
+			        std::istringstream iss(number);
+			        int i;
+			        iss >> i;
+			        ints.push_back(i);
+			    }
+	
+			    return ints;
+		}
+
+void readIntervals(std::vector<int>& vec) {
+
+	std::string::size_type sz;
+	std::ifstream t("results-sugar.txt");
+	std::string str((std::istreambuf_iterator<char>(t)),std::istreambuf_iterator<char>());
+	str.erase(std::remove(str.begin(), str.end(), '['), str.end());
+	str.erase(std::remove(str.begin(), str.end(), ']'), str.end());
+	//std::vector<string> vec = extract_ints(str);
+
+	std::istringstream input(str);
+	std::string token;
+	while (std::getline(input, token, ',')) vec.push_back(std::stoi(token, &sz));
+	std::cout << vec.size();
+}
+
 int main()
 {
+	std::vector<int> vec;
+	readIntervals(vec);
+
+
 	CorsairPerformProtocolHandshake();
 	if (const auto error = CorsairGetLastError()) {
 		std::cout << "Handshake failed: " << toString(error) << std::endl;
@@ -283,7 +328,13 @@ int main()
 	VK_Keys["."] = 0xBE;*/
 	int score[1] = {0};
 	bool superPowerActive[1] = { false };
-	while (!GetAsyncKeyState(VK_ESCAPE)) {
+	std::cout << vec.size();
+	PlaySound(TEXT("Sugar.wav"), NULL, SND_ASYNC);
+	//sndPlaySound(L"audioclip-1479013815.wav", SND_FILENAME | SND_ASYNC | SND_LOOP);
+	//PlaySound(L"audioclip-1479013815.wav", GetModuleHandle(NULL), SND_FILENAME | SND_ASYNC);
+	//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	
+	for (std::vector<int>::reverse_iterator it = vec.rbegin(); it != vec.rend(); ++it) {
 		/*std::thread t1(PrintHello, (void*)1);
 		std::thread t2(PrintHello, (void*)2);
 		t1.detach();
@@ -297,13 +348,15 @@ int main()
 			}
 			for (int i = 0; i < 12; i++) {
 				performPulseEffect(getAvailableKeys());
+				std::this_thread::sleep_for(std::chrono::milliseconds(25));
 			}
 			superPowerActive[0] = false;
 		}
 		int note = rand() % 4;
 		std::thread t1(spawnNote, note, score, superPowerActive);
 		t1.detach();
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		//int wait = rand() % 500 + 500;
+		std::this_thread::sleep_for(std::chrono::milliseconds(*it));
 		
 	}
 	//t1.join();

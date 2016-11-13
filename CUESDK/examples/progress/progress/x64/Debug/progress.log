@@ -1,4 +1,11 @@
-﻿  LINK : C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\progress\x64\Debug\progress.exe not found or not built by the last incremental link; performing full link
+﻿  progress.cpp
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\progress\progress\progress.cpp(103): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\progress\progress\progress.cpp(168): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\progress\progress\progress.cpp(214): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\progress\progress\progress.cpp(260): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\progress\progress\progress.cpp(261): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\fan\documents\cuesdk_2.4.67\yhacks-2016\cuesdk\examples\progress\progress\progress.cpp(271): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  LINK : C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\progress\x64\Debug\progress.exe not found or not built by the last incremental link; performing full link
   progress.vcxproj -> C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\progress\x64\Debug\progress.exe
   progress.vcxproj -> C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\progress\x64\Debug\progress.pdb (Full PDB)
   C:\Users\Fan\Documents\CUESDK_2.4.67\yhacks-2016\CUESDK\examples\progress\..\..\bin\x64\CUESDK.x64_2012.dll
